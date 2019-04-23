@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Fire-Base</title>
+    </head>
+    <body>
+        <!-- <button onclick="googleSignIn()">Google Sign In</button> -->
+
+        <h1>hello <span id="clientname"></span></h1>
+    </body>
+    
+    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+    <script>
+        // Firebase App (the core Firebase SDK) is always required and
+// must be listed before other Firebase SDKs
+// var firebase = require("firebase");
+// Initialize Firebase
+
+var config = {
+    apiKey: "AIzaSyCGXP3y1YFJF3AizLSt9gOaeK-_3eu7EE8",
+    authDomain: "fir-auth-ddea8.firebaseapp.com",
+    databaseURL: "https://fir-auth-ddea8.firebaseio.com",
+    projectId: "fir-auth-ddea8",
+    storageBucket: "fir-auth-ddea8.appspot.com",
+    messagingSenderId: "445749487460"
+};
+firebase.initializeApp(config);
+
+// googleSignIn=()=>{
+//     base_provider = new firebase.auth.GoogleAuthProvider()
+//     firebase.auth.signInWithRedirect(base_provider).then(function(result){
+//         console.log(result)
+//         console.log("Success.Google Account Linked")
+//     }).catch(function(err){
+//         console.log(err)
+//         console.log("Google Sign In Failed")
+//     })
+// }
+function login(){
+     function newLoginHappened(user){
+         if(user){
+             app(user);
+         }else{
+             var provider = new firebase.auth.GoogleAuthProvider();
+             firebase.auth().signInWithRedirect(provider);
+         }
+     }
+        firebase.auth().onAuthStateChanged(newLoginHappened);
+    }
+ function app(user){
+     document.getElementById('clientname').innerHTML =user.displayName;
+ }
+ window.onload = login;
+    </script>
+</html>
